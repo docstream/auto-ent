@@ -45,6 +45,14 @@ dnl
 dnl Helper(s)
 define(«FLDS»,«shift(shift(shift(shift($@))))»)dnl
 dnl
+dnl
+/* ---------------------------------------
+ *
+ *
+ *       E n t i t y   ::  CAMEL($1)  
+ *
+ *
+ * --------------------------------------- */
 type CAMEL($1) struct {
 dnl
 dnl
@@ -85,16 +93,18 @@ INDENT(«Deletable»)
 
 }
 
-func (obj *$1) Fill(row *sql.Row) error {
-
-}
-
-func (obj *$1) Validate() bool {
+// connect with SQL
+func (obj *CAMEL($1)) Fill(row *sql.Row) error {
     // TODO
 }
 
-func init() {
+func (obj *CAMEL($1)) Validate() bool {
+    // TODO
+}
 
+// connect with ORM-sys
+func init() {
+    // TDOD
 }
 
 

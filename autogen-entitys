@@ -25,6 +25,8 @@ NAME := autogen-entitys
 SRC := ./demo/mymodels.m4
 PKG := mymodel
 TOP_CLASS := Beans
+ORM_DEP=1
+SQL_DEP=1
 M4 := m4
 SED := sed
 
@@ -37,7 +39,7 @@ rm_dbl_commented_line := $(SED) -E "/(^[ \t]*)\#[;].*/d"
 
 help:
 	@echo
-	@echo "Usage: $(NAME) <java|go|sql> [Variables]"
+	@echo "Usage: $(NAME) <java|go|sql|help> [Variables]"
 	@echo
 	@echo "  Variables:"
 	@echo
@@ -58,6 +60,9 @@ go: toolcheck
 	@m4 -DPACKAGE=$(PKG) src/common.m4 src/go.m4 $(SRC) |\
 		$(rewrite_comments) | $(rm_dbl_commented_line)
 
+sql: toolcheck
+	@echo " .. not yet"
+	
 toolcheck:
 M4_PATH := $(shell which $(M4))
 ifndef M4_PATH
