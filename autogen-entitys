@@ -1,4 +1,4 @@
-#!/usr/bin/make -f
+#!/usr/bin/make -sf
 # -*- makefile -*-
 
 # This is a Makefile that will execute macros for each supported lang.
@@ -27,8 +27,15 @@ PKG := mymodel
 TOP_CLASS := Beans
 ORM_DEP=1
 SQL_DEP=1
+
 M4 := m4
 SED := sed
+
+SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+
+COMMON_M4 := $(SELF_DIR)src/common.m4
+GO_M4 := $(SELF_DIR)src/go.m4
+J_M4 := $(SELF_DIR)src/java.m4
 
 # sed functions
 rewrite_comments := $(SED) -E "s|(^[ \t]*)\#([^;])|\1//\2|"
@@ -51,13 +58,13 @@ help:
 	@echo
 
 
-java: toolcheck
-	@m4 -DPACKAGE=$(PKG) -DTOP_CLASS=$(TOP_CLASS) \
-		src/common.m4 src/java.m4 $(SRC) |\
+java: toolcheck 
+	@$(M4) -DPACKAGE=$(PKG) -DTOP_CLASS=$(TOP_CLASS) \
+		$(COMMON_M4) $(J_M4) $(SRC) |\
 		$(rewrite_comments) | $(rm_dbl_commented_line)
 
 go: toolcheck
-	@m4 -DPACKAGE=$(PKG) src/common.m4 src/go.m4 $(SRC) |\
+	@$(M4) -DPACKAGE=$(PKG) $(COMMON_M4) $(GO_M4) $(SRC) |\
 		$(rewrite_comments) | $(rm_dbl_commented_line)
 
 sql: toolcheck
