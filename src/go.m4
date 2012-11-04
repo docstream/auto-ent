@@ -26,7 +26,7 @@ changequote(«,»)
 define(«GO_LIST_FLD»,«dnl
 define(«_fldn», «$1»)dnl
 define(«_structn», «RM_TRAILING(RTRIM($1), «s»)»)dnl 
-_fldn []_structn `xml:"_fldn()>_structn()"`»)
+CAMEL(_fldn) []CAMEL(_structn) `xml:"_fldn()>_structn()"`»)
 
 
 
