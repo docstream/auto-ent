@@ -1,17 +1,19 @@
-Another (m4)DSL to rule them all
+Another (m4) DSL to rule them all
 =================================
 
-*Work in prog*
+_Work in progress_
 
-Usefull tool when making code that must interact via XML
+Tool that generates code to stdout.
+XML serializable features are annotated into output code.
+..And optional ORM-stuff for the go output.
 
 Depends on gnu{make,m4,sed}
 
 Supports [for now] :
 
-* SQL (soon)
 * Go (orm|xml)
 * Java (JAXB)
+* SQL (soon)
 
 Manual
 =======
