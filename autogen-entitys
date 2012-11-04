@@ -1,0 +1,71 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# This is a Makefile that will execute macros for each supported lang.
+
+# Copyright 2012,2013 Docstream A/S.
+
+# This file is part of 'auto-ent'.
+
+# 'auto-ent' is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# 'auto-ent' is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with 'auto-ent'.  If not, see <http://www.gnu.org/licenses/>.
+
+
+NAME := autogen-entitys
+SRC := ./demo/mymodels.m4
+PKG := mymodel
+TOP_CLASS := Beans
+M4 := m4
+SED := sed
+
+# sed functions
+rewrite_comments := $(SED) -E "s|(^[ \t]*)\#([^;])|\1//\2|"
+rm_dbl_commented_line := $(SED) -E "/(^[ \t]*)\#[;].*/d"
+
+# targets
+.PHONY: help toolcheck java go sql
+
+help:
+	@echo
+	@echo "Usage: $(NAME) <java|go|sql> [Variables]"
+	@echo
+	@echo "  Variables:"
+	@echo
+	@echo "    SRC=<path>        . The DSL file, defaults to '$(SRC)'"
+	@echo "    PKG=<name>        . Defaults to '$(PKG)'"
+	@echo "    TOP_CLASS=<name>  . Java only. Defaults to '$(TOP_CLASS)'"
+	@echo "    ORM_DEP=<1|0>     . Go only. Defaults to 1."
+	@echo "    SQL_DEP=<1|0>     . Go only. Defaults to 1."
+	@echo
+
+
+java: toolcheck
+	@m4 -DPACKAGE=$(PKG) -DTOP_CLASS=$(TOP_CLASS) \
+		src/common.m4 src/java.m4 $(SRC) |\
+		$(rewrite_comments) | $(rm_dbl_commented_line)
+
+go: toolcheck
+	@m4 -DPACKAGE=$(PKG) src/common.m4 src/go.m4 $(SRC) |\
+		$(rewrite_comments) | $(rm_dbl_commented_line)
+
+toolcheck:
+M4_PATH := $(shell which $(M4))
+ifndef M4_PATH
+$(error ERROR: Depends on pkg : '$(M4)')
+endif
+SED_PATH := $(shell which $(SED))
+ifndef SED_PATH
+$(error ERROR: Depends on pkg : '$(SED)')
+endif
+# end toolcheck
+
