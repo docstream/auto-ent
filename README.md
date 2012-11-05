@@ -4,8 +4,8 @@ Another (m4) DSL to rule them all
 _Work in progress_
 -------------------
 
-Tool that generates «code» (as in domain models) to stdout.
-XML serializable features are annotated into go+java output.
+DDD Tool that generates «code» (as in domain model) to stdout.  
+XML serializable features are annotated into go+java output.  
 Optional ORM-stuff for the go output.
 
 Depends on gnu{make,m4,sed}
