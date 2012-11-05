@@ -4,7 +4,8 @@ Another (m4) DSL to rule them all
 _Work in progress_
 -------------------
 
-DDD Tool that generates «code» (as in domain model) to stdout.  
+DDD CLI Tool that generates java/go entity classes/structs to stdout.  
+Will also generate SQL schemas, from same DSL file.  
 XML serializable features are annotated into go+java output.  
 Optional ORM-stuff for the go output.
 
