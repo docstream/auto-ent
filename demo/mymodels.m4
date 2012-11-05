@@ -11,18 +11,18 @@ ENTITY(
     # Name of the 'thing'
     # The 'thing' is an 'entity' aka 'table' 
     # aka 'bean' aka 'struct' etc
-     NAME(«root»), 
+    NAME(«root»), 
                                  
     # Key[s]
-     PRIMARY_KEYS(«id ASC»),
+    PRIMARY_KEYS(«id ASC»),
        
     # Allowed operation[s]
     #;   if generated code depends on our <ORM> 
-     OPS(GET, PUT),
+    OPS(GET, PUT),
                
     # Chidren, one->many relations 
     #;   using 's' in name [as prefix] to connect
-     HAS_MANY(«names», «meta_values»), 
+    HAS_MANY(«names», «meta_values»), 
        
     # Members section :
     #;  param1 = name 
